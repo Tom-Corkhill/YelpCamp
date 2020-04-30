@@ -1,14 +1,35 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
+var express = require("express"),
+    app = express(),
+    bodyParser = require("body-parser"),
+    mongoose = require("mongoose");
 
-var campgrounds = [
-    {name: "Salmon Creek", image:"https://www.talk-business.co.uk/wp-content/uploads/2020/01/shutterstock_587557163.jpg"},
-    {name: "Granite Hill", image:"https://www.lakedistrict.gov.uk/__data/assets/image/0021/134238/iStock-Camping-517043607.jpg"},
-    {name: "Mountain Goat's Rest", image:"https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1531813728/fujiguide/SG011_2"}
-]
 
+
+const uri = 'mongodb+srv://Tcorky:Rhysisa.gimp123@cluster0-lxmuq.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));
+
+var campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String,
+    description: String
+});
+
+var Campground = mongoose.model("Campground", campgroundSchema);
+
+// Campground.create(
+//     {
+//     name: "Granite Hill", 
+//     image:"https://www.lakedistrict.gov.uk/__data/assets/image/0021/134238/iStock-Camping-517043607.jpg",
+//     description: "Lovely, but no water or bathrooms"
+// }, function(err, campground){
+//     if(err) {
+//         console.log(err);
+//     } else {
+//         console.log("Newly created campground");
+//         console.log(campground);
+//     }
+// });
 
 app.set("view engine", "ejs");
 
@@ -17,7 +38,14 @@ app.get("/", function(req, res){
 });
 
 app.get("/campgrounds", function(req, res){
-    res.render("campgrounds", {campgrounds: campgrounds});
+
+    Campground.find({}, function(err, allCampgrounds){
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("index", {campgrounds: allCampgrounds});
+        }
+    });
 })
 
 app.get("/campgrounds/new", function(req, res){
@@ -27,9 +55,25 @@ app.get("/campgrounds/new", function(req, res){
 app.post("/campgrounds", function(req, res){
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = {name: name, image: image};
-    campgrounds.push(newCampground);
-    res.redirect("/campgrounds");
+    var desc = req.body.description;
+    var newCampground = {name: name, image: image, description: desc};
+    Campground.create(newCampground, function(err, newlyCreated){
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect("/campgrounds");
+        }
+    })
 })
+
+app.get("/campgrounds/:id", function(req, res){
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("show", {campground: foundCampground});
+        }
+    });
+});
 
 app.listen(3000, function(){});

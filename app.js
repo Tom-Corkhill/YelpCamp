@@ -1,35 +1,17 @@
 var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+    Campground = require("./models/campground"),
+    seedDB = require("./seeds");
 
 
 
-const uri = 'mongodb+srv://Tcorky:Rhysisa.gimp123@cluster0-lxmuq.mongodb.net/test?retryWrites=true&w=majority';
+seedDB();
+const uri = 'mongodb+srv://Tcorky:Rhysisa.gimp123@cluster0-lxmuq.mongodb.net/Yelp_Camp?retryWrites=true&w=majority';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));
 
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-// Campground.create(
-//     {
-//     name: "Granite Hill", 
-//     image:"https://www.lakedistrict.gov.uk/__data/assets/image/0021/134238/iStock-Camping-517043607.jpg",
-//     description: "Lovely, but no water or bathrooms"
-// }, function(err, campground){
-//     if(err) {
-//         console.log(err);
-//     } else {
-//         console.log("Newly created campground");
-//         console.log(campground);
-//     }
-// });
 
 app.set("view engine", "ejs");
 
@@ -67,10 +49,11 @@ app.post("/campgrounds", function(req, res){
 })
 
 app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err) {
             console.log(err);
         } else {
+            console.log(foundCampground);
             res.render("show", {campground: foundCampground});
         }
     });

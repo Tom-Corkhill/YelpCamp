@@ -12,9 +12,8 @@ seedDB();
 const uri = 'mongodb+srv://Tcorky:Rhysisa.gimp123@cluster0-lxmuq.mongodb.net/Yelp_Camp?retryWrites=true&w=majority';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));
-
-
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 app.get("/", function(req, res){
     res.render("landing");
@@ -54,7 +53,6 @@ app.get("/campgrounds/:id", function(req, res){
         if(err) {
             console.log(err);
         } else {
-            console.log(foundCampground);
             res.render("campgrounds/show", {campground: foundCampground});
         }
     });

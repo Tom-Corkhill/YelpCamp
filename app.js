@@ -6,14 +6,15 @@ var express = require("express"),
     LocalStrategy = require("passport-local");
     Campground = require("./models/campground"),
     Comment = require("./models/comment"),
-    User = require("./models/user"),
-    seedDB = require("./seeds");
+    User = require("./models/user");
+    // Seed the database
+    // seedDB = require("./seeds");
 
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     authRoutes       = require("./routes/index");
 
-seedDB();
+// seedDB();
 const uri = 'mongodb+srv://Tcorky:Rhysisa.gimp123@cluster0-lxmuq.mongodb.net/Yelp_Camp?retryWrites=true&w=majority';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));

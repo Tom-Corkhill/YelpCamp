@@ -21,3 +21,17 @@
                 </ul>
             </div>
         </nav>
+
+        <div class="container">
+            <% if(error && error.length > 0){ %>
+            <div class="alert-danger alert" role="alert">
+                <%= error %>
+            </div>
+            <% } %>
+            <% if(error && success.length > 0){ %>
+            <div class="alert-success alert" role="alert">
+                <%= success %>
+            </div>
+            <% } %>
+        </div>
+        

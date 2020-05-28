@@ -5,3 +5,10 @@
 .card img {
     padding: 0;
 }
+.delete-form {
+    display: inline;
+}
+
+#edit-btn {
+    max-width: 9%;
+}

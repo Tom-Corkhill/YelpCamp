@@ -1,13 +1,12 @@
 <%- include ("../partials/header") %>
+<script defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhfM5WkXxRNwSni_aBJxAKSPsbGSHP2Xw&callback=initMap">
+</script>
 <div class="container">
     <div class="row no-gutters">
         <div class="col-md-3">
-            <p class="lead">YelpCamp</p>
-            <div class="list-group">
-                <li class="list-group-item active">Info 1</li>
-                <li class="list-group-item">Info 2</li>
-                <li class="list-group-item">Info 3</li>
-            </div>
+            <h1><%= campground.address %></h1>
+            <div id="map"></div>
         </div>
         <div class="card col-md-9">
             <img class="img-fluid my-3" alt="Responsive image" src="<%= campground.image %>">
@@ -15,7 +14,7 @@
             <div><h4><a href="#"><%=campground.name%></a></h4></div>
             <p><%= campground.description%></p>
             <p>
-                <em>>Submmitted by <%= campground.author.username %></em>
+                <em>Submmitted by <%= campground.author.username %></em>
             </p>
             <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
                 <a id="edit-btn" class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
@@ -57,7 +56,35 @@
         </div>    
     </div>
 </div>
+<div id="latDiv" data-test=<%= campground.lat %></div>
+<div id="lngDiv" data-test=<%= campground.lng %></div>
 
+<script>
+    var lat = parseFloat(document.getElementById('latDiv').dataset.test, 10);
+    var lng = parseFloat(document.getElementById('lngDiv').dataset.test, 10);
+    let map;
+    function initMap() {
+        try {
+            let options = {
+                zoom:8,
+                center:{lat:lat, lng:lng}
+            }
 
+            // New map
+            map = new google.maps.Map(document.getElementById("map"), options);
 
+            addMarker();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    // // Add Marker Function
+    function addMarker(){
+        let marker = new google.maps.Marker({
+        position:{lat:lat, lng:lng},
+        map:map
+        });
+    }
+    </script>
 <%- include ("../partials/footer") %>

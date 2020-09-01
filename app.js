@@ -5,18 +5,15 @@ var express = require("express"),
     flash = require("connect-flash"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    methodOverride = require("method-override"),
-    Campground = require("./models/campground"),
-    Comment = require("./models/comment"),
+    methodOverride = require("method-override"), 
     User = require("./models/user"); 
-    // Seed the database
-    // seedDB = require("./seeds");
+
 
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     authRoutes       = require("./routes/index");
 
-// seedDB();
+
 const uri = 'mongodb+srv://Tcorky:Rhysisa.gimp123@cluster0-lxmuq.mongodb.net/Yelp_Camp?retryWrites=true&w=majority';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));
@@ -48,4 +45,6 @@ app.use(authRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT || 5000)
+app.listen(3000, function(req, res){
+    console.log("Server Running");
+});

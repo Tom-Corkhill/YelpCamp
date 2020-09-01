@@ -12,3 +12,7 @@
 #edit-btn {
     max-width: 9%;
 }
+#map {
+    height: 400px;
+    width: 100%;
+}

@@ -48,6 +48,4 @@ app.use(authRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(3000, function(req, res){
-    console.log("Server Running");
-});
+app.listen(process.env.PORT || 5000)

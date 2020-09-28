@@ -11,7 +11,7 @@ function geocode(req, res) {
     axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
         params:{
           address:location,
-          key:'AIzaSyAhfM5WkXxRNwSni_aBJxAKSPsbGSHP2Xw'
+          key:process.env.API_KEY
         }
     }).then(function(response) {
         if(response.data.status === "OK") {
@@ -51,7 +51,6 @@ function geocode(req, res) {
 
 
 router.get("/", function(req, res){
-
     Campground.find({}, function(err, allCampgrounds){
         if(err) {
             console.log(err);

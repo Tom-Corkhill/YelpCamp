@@ -1,7 +1,4 @@
 <%- include ("../partials/header") %>
-<script defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhfM5WkXxRNwSni_aBJxAKSPsbGSHP2Xw&callback=initMap">
-</script>
 <div class="container">
     <div class="row no-gutters">
         <div class="col-md-3">
@@ -58,7 +55,10 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhfM5WkXxRNwSni_aBJxAKSPs
 </div>
 <div id="latDiv" data-test=<%= campground.lat %></div>
 <div id="lngDiv" data-test=<%= campground.lng %></div>
-
+<script
+src='<%= process.env.MAPS_KEY_ADDRESS %>'
+defer
+></script> 
 <script>
     var lat = parseFloat(document.getElementById('latDiv').dataset.test, 10);
     var lng = parseFloat(document.getElementById('lngDiv').dataset.test, 10);

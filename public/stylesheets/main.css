@@ -25,14 +25,19 @@
     margin-left: 30px;
 }
 
-/* Navbar */
-.navbar-custom {
-    background-color: blue !important;
-    color: white !important;
-    height: 65px;
-} 
+
 
 /* campgrounds */
 .welcome {
     margin-top: 60px;
+}
+
+
+/* Authentication */
+.auth-box {
+    width: 400px;
+    background-color: #f1f1f1 !important;
+    padding: 40px 40px;
+    margin: 220px auto;
+    border-radius: 10px;
 }

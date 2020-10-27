@@ -1,9 +1,14 @@
 <%- include ("./partials/header") %>
-<h1>SIGN UP</h1>
 
-<form action="/register" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Sign up</button>
-</form>
+
+<div class="auth-box">
+    <form action="/register" method="POST">
+        <h1>Sign up for free today!</h1>
+        <input class="my-2" type="text" name="username" placeholder="username">
+        <input class="my-2" type="password" name="password" placeholder="password">
+        <div>
+            <button class="btn btn-primary my-3 btn-lg">Sign up</button>
+        </div>
+    </form>
+</div>
 <%- include ("./partials/footer") %>

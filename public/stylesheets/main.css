@@ -1,6 +1,7 @@
 
 .card {
     padding: 9px;
+    position: relative;
 }
 .card img {
     padding: 0;
@@ -15,4 +16,11 @@
 #map {
     height: 400px;
     width: 100%;
+    margin: 20px;
+}
+.map-div {
+    margin-right: 40px;
+}
+.address {
+    margin-left: 30px;
 }

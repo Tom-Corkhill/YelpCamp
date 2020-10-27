@@ -24,3 +24,15 @@
 .address {
     margin-left: 30px;
 }
+
+/* Navbar */
+.navbar-custom {
+    background-color: blue !important;
+    color: white !important;
+    height: 65px;
+} 
+
+/* campgrounds */
+.welcome {
+    margin-top: 60px;
+}
